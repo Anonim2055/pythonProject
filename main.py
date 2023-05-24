@@ -1,8 +1,11 @@
 from bson.errors import InvalidId
 from flask import Flask,jsonify,request
 from pymongo import MongoClient
-from bcrypt import hashpw,gensalt
+from bcrypt import hashpw,gensalt,checkpw
 from bson.objectid import ObjectId
+from flask_jwt_extended import JWTManager, create_access_token
+from datetime import timedelta
+
 
 
 app = Flask(__name__)
@@ -23,11 +26,38 @@ def index():
     })
     return resp
 
+# change this!
+app.config['JWT_SECRET_KEY'] = 'your-secret-key'
+jwt = JWTManager(app)
+
+
+@app.route('/users/login', methods=['POST'])
+def login():
+    email = request.json.get('email', None)
+    password = request.json.get('password', None)
+
+    if not email:
+        return jsonify({"error": "Missing email"}), 400
+    if not password:
+        return jsonify({"error": "Missing password"}), 400
+
+    user = db.users.find_one({'email': email})
+    # if email exist in DB
+    if user is None:
+        return jsonify({"error": "Invalid email or password"}), 401
+
+    checkPassword = checkpw(password.encode('utf-8'), user['password'].encode('utf-8'))
+
+    # if password is matched to DB return token
+    if user and checkPassword:
+        expires = timedelta(minutes=1)
+        access_token = create_access_token({"email": email}, expires_delta=expires)
+        return jsonify(access_token=access_token), 200
+
+    return jsonify({"error": "Invalid email or password"}), 401
 
 
 #READ
-
-
 @app.route('/users',methods=['GET'])
 def get_users():
     users = db.users.find({})
@@ -71,7 +101,6 @@ def add_user():
 #
 #
 
-from bson.objectid import ObjectId
 
 @app.route('/users/<string:_id>',methods=["PUT"])
 def update_user(_id):
