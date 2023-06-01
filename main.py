@@ -5,6 +5,7 @@ from bcrypt import hashpw,gensalt,checkpw
 from bson.objectid import ObjectId
 from flask_jwt_extended import JWTManager, create_access_token
 from datetime import timedelta
+from pymongo.errors import DuplicateKeyError
 
 
 
@@ -73,30 +74,31 @@ def get_users():
 # CREATE
 
 
-@app.route('/users',methods=['POST'])
+@app.route('/users', methods=['POST'])
 def add_user():
     body = request.json
-    required_keys = {"name", "email","password"}
+    required_keys = {"name", "email", "password"}
     # check if there's any invalid key in the request body
     if set(body.keys()) != required_keys:
         return jsonify({"error": "Invalid or missing field in request body"}), 400
-        # return error message with 400 status code
 
     password = body["password"].encode('utf-8')  # convert password to bytes
-    hashed_password = hashpw(password,gensalt())  # hash the password
+    hashed_password = hashpw(password, gensalt())  # hash the password
 
-    result = db.users.insert_one({
-        "email":body["email"],
-        "name":body["name"],
-        "password":hashed_password.decode('utf-8')  # store hashed password as string
-    })
+    try:
+        result = db.users.insert_one({
+            "email": body["email"],
+            "name": body["name"],
+            "password": hashed_password.decode('utf-8')  # store hashed password as string
+        })
+    except DuplicateKeyError:
+        return jsonify({"error": "This email is already registered."}), 400
 
     resp = jsonify({
-        "id":str(result.inserted_id),
-        "message":"user added"
+        "id": str(result.inserted_id),
+        "message": "user added"
     })
     return resp
-#
 # # UPDATE
 #
 #
