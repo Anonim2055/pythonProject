@@ -2,8 +2,9 @@ from ..main import db
 from flask import Blueprint,jsonify,request
 from ..models.userModel import User
 users = Blueprint('users',__name__,url_prefix='/users')
-
-
+from bson.objectid import ObjectId
+from flask_jwt_extended import jwt_required,get_jwt_identity
+from ..middleware.authorization import role_required
 @users.route('/login', methods=['POST'])
 def login():
     body = request.json
@@ -14,8 +15,10 @@ def login():
 
     return jsonify(response)
 
+
 #READ
-@users.route('/users',methods=['GET'])
+@users.route('',methods=['GET'])
+@role_required('admin')
 def get_users():
     user_model = User(db)
     response = user_model.get_all_users()
@@ -43,8 +46,10 @@ def add_user():
 #
 
 
-@users.route('/<string:_id>',methods=["PUT"])
-def update_user(_id):
+@users.route('',methods=["PUT"])
+@role_required('user')
+def update_user():
+    _id = get_jwt_identity()['_id']
     body =request.json
     user_model = User(db)
     response = user_model.user_update(body,_id)

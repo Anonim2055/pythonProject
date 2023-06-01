@@ -2,7 +2,7 @@ from ..schemas.userSchema import UserSchema,LoginSchema,UserUpdateSchema
 from bcrypt import hashpw,gensalt,checkpw
 from marshmallow import ValidationError
 from pymongo.errors import DuplicateKeyError
-from flask_jwt_extended import JWTManager, create_access_token
+from flask_jwt_extended import create_access_token
 from datetime import timedelta
 from bson.objectid import ObjectId
 from bson.errors import InvalidId

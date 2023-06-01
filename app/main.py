@@ -27,10 +27,5 @@ from .routes.index import main
 app.register_blueprint(main)
 app.register_blueprint(users)
 
-# @app.route('/',methods=['GET'])
-# def index():
-#     resp = jsonify({
-#         "message":"Flask Server Run"
-#     })
-#     return resp
+
 
