@@ -3,7 +3,7 @@ from flask import Blueprint,jsonify,request
 from ..models.userModel import User
 users = Blueprint('users',__name__,url_prefix='/users')
 from bson.objectid import ObjectId
-from flask_jwt_extended import jwt_required,get_jwt_identity
+from flask_jwt_extended import get_jwt_identity
 from ..middleware.authorization import role_required
 @users.route('/login', methods=['POST'])
 def login():
