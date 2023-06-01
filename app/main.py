@@ -18,8 +18,7 @@ except Exception:
 
 
 # change this!
-app.config['JWT_SECRET_KEY'] = 'your-secret-key'
-jwt = JWTManager(app)
+app.secret_key = 'your-secret-key'
 
 from .routes.users import users
 from .routes.index import main

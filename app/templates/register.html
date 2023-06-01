@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+
+<body>
+    <form method="POST" action="{{url_for('users.add_user')}}">
+        <label>FullName:</label>
+        <br/>
+        <input type="text" name="name" id="name" placeholder="Enter your name">
+          <br/>
+                {% if error.name%}
+        <p style="color:red;">{{error.name}}</p>
+        {% endif %}
+        <label>Email</label>
+        <br/>
+        <input type="email" name="email" id="email" placeholder="Enter your email">
+         <br/>
+         {% if error.email%}
+        <p style="color:red;">{{error.email}}</p>
+        {% endif %}
+         <br/>
+        <label>Password</label>
+         <br/>
+        <input type="password" name="password" id="password" placeholder="Enter your password">
+         <br/>
+    {% if error.password%}
+        <p style="color:red;">{{error.password}}</p>
+        {% endif %}
+         <br/>
+
+        <button type="submit">Register</button>
+    </form>
+</body>
+
+</html>

@@ -3,6 +3,7 @@ from bcrypt import hashpw,gensalt,checkpw
 from marshmallow import ValidationError
 from pymongo.errors import DuplicateKeyError
 from flask_jwt_extended import create_access_token
+from flask import session
 from datetime import timedelta
 from bson.objectid import ObjectId
 from bson.errors import InvalidId
@@ -28,15 +29,15 @@ class User:
                     "role": "user",
                     "password": hashed_password.decode('utf-8')  # store hashed password as string
                 })
-                return {
-                        "_id": str(result.inserted_id),
-                        "message": "user added"
-                        }
+                return True
             except DuplicateKeyError:
                 return {"error": "This email is already registered."}
         except ValidationError as err:
-
-            return {'error':err.messages}
+            if err.messages:
+                error_messages = {}
+                for field, errors in err.messages.items():
+                    error_messages[field] = errors[0]
+                return {"error": error_messages}
 
     def get_all_users(self):
         count = self.db.count_documents({})
@@ -57,18 +58,19 @@ class User:
             user = self.db.find_one({'email': validate_data['email']})
             # if email exist in DB
             if user is None:
-                return {"error": "Invalid email or password"}
+                return "Invalid email or password"
 
             checkPassword = checkpw(validate_data['password'].encode('utf-8'), user['password'].encode('utf-8'))
 
             # if password is matched to DB return token
             if user and checkPassword:
-                expires = timedelta(minutes=1)
-                access_token = create_access_token({"_id": str(user["_id"]), 'role': user['role']},
-                                                   expires_delta=expires)
-                return {'access_token':access_token}
+                session['_id'] =str(user['_id'])
+                session['role'] = user['role']
+                return True
+            else:
+                return "Invalid email or password"
         except ValidationError as err:
-            return {'error':'email or password invalid'}
+            return 'email or password invalid'
 
 
     def user_update(self,data,_id):
