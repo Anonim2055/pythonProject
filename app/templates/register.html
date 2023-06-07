@@ -29,11 +29,13 @@
          <br/>
         <input type="password" name="password" id="password" placeholder="Enter your password">
          <br/>
-    {% if error.password%}
+         {% if error.password%}
         <p style="color:red;">{{error.password}}</p>
         {% endif %}
          <br/>
-
+        {% if error.unique%}
+        <p style="color:red;">{{error.unique}}</p>
+        {% endif %}
         <button type="submit">Register</button>
     </form>
 </body>

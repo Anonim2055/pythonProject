@@ -1,10 +1,10 @@
 from ..main import db
 from flask import Blueprint,jsonify,request,render_template,redirect,url_for,session
 from ..models.userModel import User
-users = Blueprint('users',__name__,url_prefix='/users')
 from bson.objectid import ObjectId
 from flask_jwt_extended import get_jwt_identity
 
+users = Blueprint('users',__name__,url_prefix='/users')
 @users.route('/login', methods=['POST','GET'])
 def login():
     if request.method == 'POST':
@@ -40,17 +40,15 @@ def add_user():
         body = request.form
         user_model = User(db)
         response = user_model.create(body)
+        print(response)
         if response is True:
             return redirect(url_for('users.login'))
 
         if 'error' in response:
             error =response['error']
             return render_template('register.html',error=error)
-        if 'error' in response:
-            error = response['error']
-            return render_template('register.html', error=error)
 
-    return render_template('register.html')
+    return render_template('register.html',error=None)
 
 
 # # UPDATE

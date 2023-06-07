@@ -31,7 +31,7 @@ class User:
                 })
                 return True
             except DuplicateKeyError:
-                return {"error": "This email is already registered."}
+                return {"error":{"unique": "This email is already registered."}}
         except ValidationError as err:
             if err.messages:
                 error_messages = {}

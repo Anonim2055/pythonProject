@@ -1,7 +1,7 @@
 from app.main import app
 
 if __name__ == "__main__":
-    app.run(debug=True,port=3000)
+    app.run(debug=True,port=3010)
 
     # To Run in production command:
     #1.Choose a production WSGI server: There are several options available, such as Gunicorn, uWSGI, and mod_wsgi. You can choose the one that best suits your needs and preferences. For example, let's use Gunicorn in this explanation.
