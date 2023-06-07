@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask,Blueprint
 from pymongo import MongoClient
 from flask_jwt_extended import JWTManager
 
@@ -24,7 +24,8 @@ app.secret_key = 'your-secret-key'
 
 from .routes.users import users
 from .routes.index import main
-
+from .routes.products import products
+app.register_blueprint(products)
 app.register_blueprint(main)
 app.register_blueprint(users)
 

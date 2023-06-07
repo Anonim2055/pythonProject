@@ -66,6 +66,7 @@ class User:
             if user and checkPassword:
                 session['_id'] =str(user['_id'])
                 session['role'] = user['role']
+                session['name'] = user['name']
                 return True
             else:
                 return "Invalid email or password"

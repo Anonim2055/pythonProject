@@ -1,3 +1,4 @@
+
 *{
 box-sizing:border-box;
 }
@@ -8,18 +9,6 @@ font-family: 'Roboto', sans-serif;
 font-weight:100;
 }
 
-
-
-
-.navbar{
-   padding:20px 20px;
-   background-color:yellow;
-   margin-bottom:30px;
-}
-
-.navbar a{
-color:black;
-text-decoration:none;
-font-weight:400;
-margin: 0 20px;
+.pointer{
+cursor: pointer;
 }
