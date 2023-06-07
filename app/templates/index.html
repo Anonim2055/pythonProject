@@ -1,19 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Index</title>
-</head>
+{% extends "base.html" %}
+{% block title %} Home {% endblock %}
 
-<body>
+{% block content %}
+
     <h1>{{message}}</h1>
 
     {% for user in users %}
-    <p>{{user.name}} {{user.password}}  {{user.email}}</p>
+    <p >{{user.name}} {{user.password}}  {{user.email}}</p>
     {% endfor %}
-</body>
 
-</html>
+
+{% endblock %}
+
+
+

@@ -1,0 +1,38 @@
+
+{% extends "base.html" %}
+{% block title %} Home {% endblock %}
+
+{% block content %}
+
+
+    <div class="container p-5 p-md-0">
+        <div class="row d-flex">
+   <h1 class="display-3 mt-5">My Products</h1>
+    {% for product in products %}
+   <!--            Start-->
+            <div class="col-12 col-md-4  p-4">
+                <div class="border shadow-lg d-md-flex rounded-5 h-100">
+                    <div class="col-md-6">
+        <img class="rounded-5 p-2" width="100%" src="{{product.img_url}}">
+                    </div>
+                    <div class="col-md-6 p-4">
+                    <p class="m-0">{{product.name}}</p>
+                    <p class="m-0">price: {{product.price}}$</p>
+                    <p class="m-0">{{product.description}}</p>
+                    <p class="m-0">Category: {{product.category}}</p>
+
+                </div>
+                </div>
+            </div>
+            <!--            End-->
+    {% endfor %}
+
+        </div>
+
+    </div>
+
+
+{% endblock %}
+
+
+

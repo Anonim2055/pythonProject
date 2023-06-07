@@ -31,7 +31,7 @@ class User:
                 })
                 return True
             except DuplicateKeyError:
-                return {"error": "This email is already registered."}
+                return {"error":{"unique": "This email is already registered."}}
         except ValidationError as err:
             if err.messages:
                 error_messages = {}
@@ -66,6 +66,7 @@ class User:
             if user and checkPassword:
                 session['_id'] =str(user['_id'])
                 session['role'] = user['role']
+                session['name'] = user['name']
                 return True
             else:
                 return "Invalid email or password"

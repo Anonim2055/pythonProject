@@ -1,29 +1,65 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-</head>
+{% extends "base.html" %}
+{% block title %} Login {% endblock %}
 
-<body>
-    <form method="POST" action="{{url_for('users.login')}}">
-        <label>Email</label>
-        <br/>
-        <input type="email" name="email" id="email" placeholder="Enter your email">
-         <br/>
-        <label>Password</label>
-         <br/>
-        <input type="password" name="password" id="password" placeholder="Enter your password">
-         <br/>
-        {% if error%}
-            <p style="color:red;">{{error}}</p>
-        {% endif %}
-        <button type="submit">Login</button>
-    </form>
-        <a href="{{ url_for('users.add_user') }}">Register</a>
-</body>
+{% block content %}
+    <div class="vh-100 d-flex justify-content-center align-items-center">
+        <div class="container">
+            <div class="row d-flex justify-content-center">
+                <div class="col-12 col-md-8 col-lg-6">
+                    <div class="card bg-white">
+                        <div class="card-body p-5">
+                            <form method="POST" action="{{url_for('users.login')}}" class="mb-3 mt-md-4">
+                                <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
+                                <p class="mb-5">Please enter your email and password!</p>
+                                <div class="mb-3">
+                                    <label  class="form-label">Email address</label>
+                                    <input type="email" class="form-control" name="email" id="email" placeholder="name@example.com" />
+                                </div>
+                                <div class="mb-3">
+                                    <label  class="form-label">Password</label>
+                                    <input type="password" class="form-control" id="password" name="password"  placeholder="*******" />
+                                </div>
+                                   {% if error%}
+                                   <p class="text-danger">{{error}}</p>
+                                     {% endif %}
+                                <p class="small">
+                                    <p class="text-primary  pointer">Forgot password?</p>
+                                 </p>
+                  <div class="d-grid">
+                    <button class="btn btn-outline-dark" type="submit">
+                      Login
+                    </button>
+                  </div>
+                </form>
+                <div>
+                  <p class="mb-0 text-center">
+                    Don't have an account?
+                    <a href="{{ url_for('users.add_user') }}" class="text-primary fw-bold"
+                      >Sign Up</a
+                    >
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-</html>
+<!--    <form method="POST" action="{{url_for('users.login')}}">-->
+<!--        <label>Email</label>-->
+<!--        <br/>-->
+<!--        <input type="email" name="email" id="email" placeholder="Enter your email">-->
+<!--         <br/>-->
+<!--        <label>Password</label>-->
+<!--         <br/>-->
+<!--        <input type="password" name="password" id="password" placeholder="Enter your password">-->
+<!--         <br/>-->
+<!--        {% if error%}-->
+<!--            <p style="color:red;">{{error}}</p>-->
+<!--        {% endif %}-->
+<!--        <button type="submit">Login</button>-->
+<!--    </form>-->
+<!--        <a href="{{ url_for('users.add_user') }}">Register</a>-->
+{% endblock %}
