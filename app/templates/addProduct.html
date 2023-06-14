@@ -34,6 +34,10 @@
                 <input type="url" class="form-control" id="img_url" name="img_url" required>
             </div>
             <button type="submit" class="btn btn-primary">Add Product</button>
+             <div  class="btn btn-dark ">
+                 <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                 <a class="a-link" href="{{ url_for('products.get_my_products') }}">Go back</a>
+            </div>
         </form>
 
         </div>

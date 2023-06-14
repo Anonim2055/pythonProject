@@ -1,0 +1,21 @@
+
+{% extends "base.html" %}
+{% block title %} {{title}} {% endblock %}
+
+{% block content %}
+  <div class="container">
+        <p class="mt-5 text-medium">{{error}}</p>
+   <button type="submit" class="btn btn-dark badge">
+       <i class="fa fa-arrow-left" aria-hidden="true">
+
+       </i>
+         <a class="a-link" href="{{ url_for('products.get_my_products') }}">Go back</a>
+    </button>
+  </div>
+
+
+
+{% endblock %}
+
+
+

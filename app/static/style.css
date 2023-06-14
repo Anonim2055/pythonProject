@@ -12,3 +12,12 @@ font-weight:100;
 .pointer{
 cursor: pointer;
 }
+
+.a-link{
+color:white;
+text-decoration:none;
+}
+
+.text-medium{
+font-size:2em;
+}
