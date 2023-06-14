@@ -12,6 +12,6 @@ This project requires Python and several Python libraries. To install these depe
 
 2. Run this commands:
 ```bash
-    python -m venv env
+    python3 -m venv env
     source env/bin/activate  
-    pip install -r requirements.txt
+    pip3 install -r requirements.txt
