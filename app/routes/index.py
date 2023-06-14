@@ -20,8 +20,8 @@ def index():
     ]
     return render_template('index.html',message=message,users=users)
 
-@main.route('/protected',methods=['GET'])
 
+@main.route('/protected',methods=['GET'])
 @login_required
 def protected_route():
     return render_template('protected.html')

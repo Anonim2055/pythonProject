@@ -1,41 +1,92 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-</head>
+{% extends "base.html" %}
+{% block title %} Register {% endblock %}
 
-<body>
-    <form method="POST" action="{{url_for('users.add_user')}}">
-        <label>FullName:</label>
-        <br/>
-        <input type="text" name="name" id="name" placeholder="Enter your name">
-          <br/>
-                {% if error.name%}
-        <p style="color:red;">{{error.name}}</p>
-        {% endif %}
-        <label>Email</label>
-        <br/>
-        <input type="email" name="email" id="email" placeholder="Enter your email">
-         <br/>
-         {% if error.email%}
-        <p style="color:red;">{{error.email}}</p>
-        {% endif %}
-         <br/>
-        <label>Password</label>
-         <br/>
-        <input type="password" name="password" id="password" placeholder="Enter your password">
-         <br/>
-    {% if error.password%}
-        <p style="color:red;">{{error.password}}</p>
-        {% endif %}
-         <br/>
+{% block content %}
+    <div class=" d-flex justify-content-center align-items-center">
+        <div class="container py-5">
+            <div class="row d-flex justify-content-center ">
+                <div class="col-12 col-md-8 col-lg-6 ">
+                    <div class="card bg-white ">
+                        <div class=" p-5">
+                            <form  method="POST" action="{{url_for('users.add_user')}}" class="mb-3 mt-md-4">
+                                <h2 class="fw-bold mb-2 text-uppercase">Sign-Up</h2>
+                                <p class="mb-5">Please enter your email password and your full name!</p>
+                                      <div class="mb-3">
+                                    <label  class="form-label">Full Name</label>
+                                    <input type="text" class="form-control" name="name" id="name" placeholder="First Name + Last Name" />
+                                    {% if error.name%}
+                                    <p class="text-danger">{{error.name}}</p>
+                                    {% endif %}
+                                      </div>
+                                <div class="mb-3">
+                                    <label  class="form-label">Email address</label>
+                                    <input type="email" class="form-control" name="email" id="email" placeholder="name@example.com" />
+                                             {% if error.email%}
+                                    <p class="text-danger">{{error.email}}</p>
+                                    {% endif %}
+                                </div>
 
-        <button type="submit">Register</button>
-    </form>
-</body>
-
-</html>
+                                <div class="mb-3">
+                                    <label  class="form-label">Password</label>
+                                    <input type="password" class="form-control" id="password" name="password"  placeholder="*******" />
+                                    {% if error.password%}
+                                    <p class="text-danger">{{error.password}}</p>
+                                    {% endif %}
+                                </div>
+                                   {% if error.unique%}
+                                   <p class="text-danger">{{error.unique}}</p>
+                                     {% endif %}
+                                <p class="small">
+                                    <p class="text-primary  pointer">Forgot password?</p>
+                                 </p>
+                  <div class="d-grid">
+                    <button class="btn btn-outline-dark" type="submit">
+                      Sign Up
+                    </button>
+                  </div>
+                </form>
+                <div>
+                  <p class="mb-0 text-center">
+                    To Login
+                    <a href="{{ url_for('users.login') }}" class="text-primary fw-bold"
+                      >login</a
+                    >
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+<!--    <form method="POST" action="{{url_for('users.add_user')}}">-->
+<!--        <label>FullName:</label>-->
+<!--        <br/>-->
+<!--        <input type="text" name="name" id="name" placeholder="Enter your name">-->
+<!--          <br/>-->
+<!--                {% if error.name%}-->
+<!--        <p style="color:red;">{{error.name}}</p>-->
+<!--        {% endif %}-->
+<!--        <label>Email</label>-->
+<!--        <br/>-->
+<!--        <input type="email" name="email" id="email" placeholder="Enter your email">-->
+<!--         <br/>-->
+<!--         {% if error.email%}-->
+<!--        <p style="color:red;">{{error.email}}</p>-->
+<!--        {% endif %}-->
+<!--         <br/>-->
+<!--        <label>Password</label>-->
+<!--         <br/>-->
+<!--        <input type="password" name="password" id="password" placeholder="Enter your password">-->
+<!--         <br/>-->
+<!--         {% if error.password%}-->
+<!--        <p style="color:red;">{{error.password}}</p>-->
+<!--        {% endif %}-->
+<!--         <br/>-->
+<!--        {% if error.unique%}-->
+<!--        <p style="color:red;">{{error.unique}}</p>-->
+<!--        {% endif %}-->
+<!--        <button type="submit">Register</button>-->
+<!--    </form>-->
+{% endblock %}

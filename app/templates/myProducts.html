@@ -1,0 +1,63 @@
+
+{% extends "base.html" %}
+{% block title %} Home {% endblock %}
+
+{% block content %}
+
+
+    <div class="container p-5 p-md-0">
+          <h1 class="display-3 mt-5">My Products</h1>
+    <div class="col-lg-2">
+        <a class="btn btn-primary" href="{{ url_for('products.add_product') }}">Add Product</a>
+    </div>
+        <div class="row d-flex">
+
+            {%if length <= 0 %}
+                <div class=" mt-2 text-center w-auto">
+                    <div><i class="fa fa-arrow-up" aria-hidden="true"></i>
+                        </div>
+                    <p >To add Product</p>
+                </div>
+
+                <p class="text-medium mt-3">No products added...</p>
+    {%else%}
+    {% for product in products %}
+   <!--            Start-->
+            <div class="col-12 col-md-4  p-4">
+                <div class="border shadow-lg d-md-flex rounded-5 h-100">
+                    <div class="col-md-6">
+                         <img class="rounded-5 p-2" width="100%" src="{{product.img_url}}">
+                    </div>
+                    <div class="col-md-6 p-2 ">
+                        <p class="m-0">{{product.name}}</p>
+                        <p class="m-0">price: {{product.price}}$</p>
+                        <p class="m-0">{{product.description}}</p>
+                        <p class="m-0">Category: {{product.category}}</p>
+                        <div class="d-flex">
+                <form class="d-flex justify-content-end align-items-end py-2 mx-2" method="POST" action="{{ url_for('products.delete_product', _id=product._id) }}">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <button type="submit" class="btn btn-danger badge"><i class="fa fa-trash-o" aria-hidden="true"></i>
+</button>
+                </form>
+                <form class="d-flex justify-content-end align-items-end py-2" method="GET" action="{{ url_for('products.update_product', _id=product._id) }}">
+
+                    <button type="submit" class="btn btn-primary badge">
+                       <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                    </button>
+                </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--            End-->
+    {% endfor %}
+          {% endif %}
+        </div>
+
+    </div>
+
+
+{% endblock %}
+
+
+
